@@ -70,7 +70,7 @@ const displayMovements = function(movements) {
     const html = `
     <div class="movements__row">
       <div class="movements__type movements__type--${type}">${i + 1} ${type}</div>
-      <div class="movements__value">${mov}</div>
+      <div class="movements__value">${mov}€</div>
     </div>
     
     `;
@@ -80,6 +80,21 @@ const displayMovements = function(movements) {
 }
 
 displayMovements(account1.movements);
+
+const calcDisplayBalance = movements => {
+  const balance = movements.reduce((acc, mov) => acc + mov, 0);
+  labelBalance.textContent = `${balance} EUR`;
+}
+
+calcDisplayBalance(account1.movements);
+
+const calcDisplaySummary = (movements) => {
+
+  const incomes = movements.filter(mov => mov > 0).reduce((acc, mov) => acc + mov, 0);
+  labelSumIn.textContent = `${incomes} €`;
+
+};
+calcDisplaySummary(account1.movements);
 
 const createUsersNames = accs => {
 
@@ -97,20 +112,16 @@ accs.forEach(acc => {
 createUsersNames(accounts);
 
 
-const movements = [200, 450, -450, 3000, -650, -130, 70, 1300];
-const euroToUsd =  1.22;
-const movementsUSD = movements.map( mov => mov * euroToUsd );
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+const eurToUSD = 1.22;
 
-const moveDiscription = movements.map(
-  (mov, i) =>
-  
-  `Movement ${i + 1}: You ${mov > 0 ? 'diposited' : 'withdrew'} ${Math.abs(mov)}`
-  
-);
+const totalDepositsUSD = movements
+.filter(mov => mov > 0)
+.map(mov => mov * eurToUSD)
+.reduce((acc, mov) => acc + mov, 0);
+
+console.log(totalDepositsUSD);
 
 
-const deposits = movements.filter(mov => mov > 0);
-console.log(deposits);
 
-const withdrawals = movements.filter(mov => mov < 0);
-console.log(withdrawals);
+

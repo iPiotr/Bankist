@@ -58,6 +58,7 @@ const inputTransferAmount = document.querySelector('.form__input--amount');
 const inputLoanAmount = document.querySelector('.form__input--loan-amount');
 const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
+const labelTotalMovements = document.querySelector('.total__movements');
 
 const displayMovements = function(movements, sort = false) {
 
@@ -78,6 +79,13 @@ const displayMovements = function(movements, sort = false) {
 
     containerMovements.insertAdjacentHTML('afterbegin', html)
   });
+}
+
+const totalAccountMovements = acc => {
+  labelTotalMovements.textContent = `Total movements: ${acc.movements.length}`
+
+  // const totalAccountMovements = currentAccount.map(acc => acc.movements);
+  // console.log(totalAccountMovements);
 }
 
 const calcDisplayBalance = acc => {
@@ -132,6 +140,7 @@ const updateUI = (acc) => {
   displayMovements(acc.movements);
   calcDisplayBalance(currentAccount);
   calcDisplaySummary(currentAccount);
+  totalAccountMovements(currentAccount);
   
 }
 
@@ -223,8 +232,4 @@ btnSort.addEventListener('click', (e) => {
   displayMovements(currentAccount.movements, !sorted);
 
   sorted = !sorted;
-})
-
-
-
-
+});

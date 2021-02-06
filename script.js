@@ -117,7 +117,6 @@ const formatMovementDate = (date, locale) => {
   Math.round(Math.abs((date2 - date1) / (1000 * 60 * 60 * 24)));
 
   const daysPassed = calcDaysPassed(new Date(), date);
-  console.log(daysPassed);
 
   if(daysPassed === 0) return 'Today';
   if(daysPassed === 1) return 'Yesterday';
@@ -285,8 +284,6 @@ btnTransfer.addEventListener('click', e => {
   const amount = +inputTransferAmount.value;
   const reciverAcc = accounts.find(acc => acc.userName === inputTransferTo.value);
 
-  console.log(amount, reciverAcc);
-
   if(amount > 0 && 
     reciverAcc &&
     currentAccount.balance >= amount &&
@@ -331,7 +328,6 @@ btnClose.addEventListener('click', (e) => {
     +inputClosePin.value === currentAccount.pin) {
         
       const index = accounts.findIndex(acc => acc.userName === currentAccount.userName);
-      console.log(index);
 
       accounts.splice(index, 1);
 
